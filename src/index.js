@@ -1,19 +1,26 @@
-import React from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import YTSearch from 'youtube-api-search';
 import SearchBar from './components/searchBar';
 
+class App extends Component{
+  constructor(props){
+    super(props);
 
-YTSearch({key: API_KEY, term: 'flute'}, function(data){
-  console.log(data);
-});
+    this.state = { videos: [] };
 
-const App = () => {
-  return (
-    <div>
+    YTSearch({key: API_KEY, term: 'flute'}, (videos) => {
+      this.setState({videos});
+    });
+  }
+
+  render(){
+    return (
+      <div>
       <SearchBar />
-    </div>
-  );
+      </div>
+    );
+  }
 }
 
 ReactDOM.render(<App />, document.querySelector('.container'));
